@@ -1,5 +1,5 @@
-# Naam:
-# Datum:
+# Naam: Valerie Verhalle
+# Datum: 
 # Versie:
 
 # Voel je vrij om de variabelen/functies andere namen te geven als je die logischer vind.
@@ -8,14 +8,14 @@
 # Ga je runnen met het echte bestand, geef je programma dan even de tijd.
 
 def main():
-    bestandsnaam = "minalpaca.fa" # Voer hier de bestandsnaam van het juiste bestand in, of hernoem je bestand
+    bestandsnaam = "alpaca.fa" # Voer hier de bestandsnaam van het juiste bestand in, of hernoem je bestand
     """
     Hier onder vind je de aanroep van de lees_inhoud functie, die gebruikt maakt van de bestand variabele als argument.
     De resultaten van de functie, de lijst met headers en de lijst met sequenties, sla je op deze manier op in twee losse resultaten.
     """
     headers, seqs = lees_inhoud(bestandsnaam)
-    print(headers) # [h, h, h, h]
-    print(seqs) #[s, s, s, s]
+    #print(headers) # [h, h, h, h]
+    #print(seqs) #[s, s, s, s]
     print(70*"-")
 
     zoekwoord = input("Geef een zoekwoord op: ")
@@ -24,10 +24,11 @@ def main():
 
     #for elem in seqs:
         #isdnabool = is_dna(elem)
-
+    
     for h in headers:
         if zoekwoord in h:
             seq = seqs[headers.index(h)]
+            
             print("header match:",h)
             print("bijbehorende sequentie:",seq)
             print(70*"-")
@@ -37,10 +38,10 @@ def main():
             
             knipt(seq)
             print(30*"-")
-        
+       
 def lees_inhoud(bestandsnaam):
     bestand = open(bestandsnaam)
-    print(bestand)
+    #print(bestand)
     #file_list = bestand.readlines() #type(list)
     #file_string = bestand.read()#type(string)
     
@@ -104,8 +105,9 @@ def knipt(seqs):
     Deze functie bepaald of een restrictie enzym in de sequentie (een element uit seqs) knipt.
     Hiervoor mag je kiezen wat je returnt, of wellicht wil je alleen maar printjes maken.
     """
+    print(seqs)
     bestand = open("enzymen.txt")
-    print(bestand)
+    #print(bestand)
     enzymen = []
 
     for line in bestand:
@@ -116,15 +118,15 @@ def knipt(seqs):
         seq[1] = seq[1].replace('^','')
         #print(enzym);
 
-    for el in seqs:
-        for plek in enzymen:
-            if plek[1] in el:
-                pos = el.index(plek[1])
-                A = pos*" " + plek[1]
-                print (el)
-                print(A)
-                print ("Match:" ,plek[0],plek[1])
-            
-           
-    
+    i=0
+    for seq in enzymen:
+        i+=1
+        if seq[1] in seqs:
+            pos = seqs.index(seq[1])
+            A = pos*" " + seq[1]
+            print (seqs)
+            print(A)
+            print ("Match:" ,seq[0],seq[1])
+            print('\n')
+   
 main()
