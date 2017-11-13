@@ -81,19 +81,17 @@ def is_dna(seqs):
         C = lines.count("C")
         T = lines.count("T")
         totaal = A + G + C + T
-        
-    try:
-        
-        for i in seqs:
-            A = (len(lines))
-            if A == totaal:
-                print("bestand is DNA")
-                return True
-            if A != totaal:
-                print("Bestand is geen DNA")
-                return False
-    except:
-        print('error')
+
+
+    for i in seqs:
+        A = (len(lines))
+        if A == totaal:
+            print("bestand is DNA")
+            return True
+        if A != totaal:
+            print("Bestand is geen DNA")
+            return False
+
 
 def knipt(seqs):
     """
