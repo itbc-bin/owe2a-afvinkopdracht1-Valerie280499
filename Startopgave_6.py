@@ -15,30 +15,28 @@ def main():
     """
     try:            
         headers, seqs = lees_inhoud(bestandsnaam)
+    except FileNotFoundError:
+        print('Het bestand kan niet gevonden worden. Zet een geldig fasta bestand in dezelfde map als waar u het programma vanuit draait en probeer het dan opnieuw.')
+    except Exception:
+        print('Something went wrong')
+    else:
         print(70*"-")
-    except:
-        print('Bestand is niet correct.')
-
-    zoekwoord = input("Geef een zoekwoord op: ")
-    print(zoekwoord)
-    print(70*"-")
-
-    #for elem in seqs:
-        #isdnabool = is_dna(elem)
-    
-    for h in headers:
-        if zoekwoord in h:
-            seq = seqs[headers.index(h)]
-            
-            print("header match:",h)
-            print("bijbehorende sequentie:",seq)
-            print(70*"-")
-            
-            is_dna(seq)
-            print(70*"-")
-            
-            knipt(seq)
-            print(30*"-")
+        zoekwoord = input("Geef een zoekwoord op: ")
+        print(70*"-")
+        
+        for h in headers:
+            if zoekwoord in h:
+                seq = seqs[headers.index(h)]
+                
+                print("header match:",h)
+                print("bijbehorende sequentie:",seq)
+                print(70*"-")
+                
+                is_dna(seq)
+                print(70*"-")
+                
+                knipt(seq)
+                print(30*"-")
        
 def lees_inhoud(bestandsnaam):
     bestand = open(bestandsnaam)
@@ -107,28 +105,29 @@ def knipt(seqs):
     try:
         print(seqs)
         bestand = open("enzymen.txt")
-    except:
-        print('error')
+    except FileNotFoundError:
+        print('Het bestand kan niet gevonden worden. Zet een geldig fasta bestand in dezelfde map als waar u het programma vanuit draait en probeer het dan opnieuw.')
+    else:
     
-    enzymen = []
+        enzymen = []
 
-    for line in bestand:
-        combi = line.split()
-        enzymen.append(combi)
-        
-    for seq in enzymen:
-        seq[1] = seq[1].replace('^','')
-        #print(enzym);
+        for line in bestand:
+            combi = line.split()
+            enzymen.append(combi)
+            
+        for seq in enzymen:
+            seq[1] = seq[1].replace('^','')
+            #print(enzym);
 
-    i=0
-    for seq in enzymen:
-        i+=1
-        if seq[1] in seqs:
-            pos = seqs.index(seq[1])
-            A = pos*" " + seq[1]
-            print (seqs)
-            print(A)
-            print ("Match:" ,seq[0],seq[1])
-            print('\n')
+        i=0
+        for seq in enzymen:
+            i+=1
+            if seq[1] in seqs:
+                pos = seqs.index(seq[1])
+                A = pos*" " + seq[1]
+                print (seqs)
+                print(A)
+                print ("Match:" ,seq[0],seq[1])
+                print('\n')
    
 main()
