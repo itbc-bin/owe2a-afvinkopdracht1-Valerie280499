@@ -13,10 +13,11 @@ def main():
     Hier onder vind je de aanroep van de lees_inhoud functie, die gebruikt maakt van de bestand variabele als argument.
     De resultaten van de functie, de lijst met headers en de lijst met sequenties, sla je op deze manier op in twee losse resultaten.
     """
-    headers, seqs = lees_inhoud(bestandsnaam)
-    #print(headers) # [h, h, h, h]
-    #print(seqs) #[s, s, s, s]
-    print(70*"-")
+    try:            
+        headers, seqs = lees_inhoud(bestandsnaam)
+        print(70*"-")
+    except:
+        print('Bestand is niet correct.')
 
     zoekwoord = input("Geef een zoekwoord op: ")
     print(zoekwoord)
@@ -41,28 +42,26 @@ def main():
        
 def lees_inhoud(bestandsnaam):
     bestand = open(bestandsnaam)
-    #print(bestand)
-    #file_list = bestand.readlines() #type(list)
-    #file_string = bestand.read()#type(string)
-    
+  
     headers = []
     seqs = []
     seq = ""
 
     for line in bestand:
         line = line.strip()
-                
+                    
         if ">" in line:
             headers.append(line)
+            
             if len(seq) > 0:
                 seqs.append(seq)
                 seq =""
         else:
             seq += line
-    seqs.append(seq)
-    #print(headers)  
-    #print(seqs)  
+            seqs.append(seq)
+        
 
+    return headers, seqs
     """
     Schrijf hier je eigen code die het bestand inleest en deze splitst in headers en sequenties.
     Lever twee lijsten op:
@@ -71,10 +70,6 @@ def lees_inhoud(bestandsnaam):
     Hieronder vind je de return nodig om deze twee lijsten op te leveren
     """
 
-         
-    return headers, seqs
-
-    
 def is_dna(seqs):
     """
     Deze functie bepaald of de sequentie (een element uit seqs) DNA is.
@@ -89,14 +84,18 @@ def is_dna(seqs):
         T = lines.count("T")
         totaal = A + G + C + T
         
-    for i in seqs:
-        A = (len(lines))
-        if A == totaal:
-            print("bestand is DNA")
-            return True
-        if A != totaal:
-            print("Bestand is geen DNA")
-            return False
+    try:
+        
+        for i in seqs:
+            A = (len(lines))
+            if A == totaal:
+                print("bestand is DNA")
+                return True
+            if A != totaal:
+                print("Bestand is geen DNA")
+                return False
+    except:
+        print('error')
 
 def knipt(seqs):
     """
@@ -105,9 +104,12 @@ def knipt(seqs):
     Deze functie bepaald of een restrictie enzym in de sequentie (een element uit seqs) knipt.
     Hiervoor mag je kiezen wat je returnt, of wellicht wil je alleen maar printjes maken.
     """
-    print(seqs)
-    bestand = open("enzymen.txt")
-    #print(bestand)
+    try:
+        print(seqs)
+        bestand = open("enzymen.txt")
+    except:
+        print('error')
+    
     enzymen = []
 
     for line in bestand:
